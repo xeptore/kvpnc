@@ -31,8 +31,44 @@
 
 ## Run
 
-```bash
-docker run -d --name keriovpn --privileged -v $(pwd)/kerio-svc.conf:/etc/kerio-kvc.conf ghcr.io/xeptore/kvpnc
+```sh
+docker container run --rm -it --name=kvpnc --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc:latest
+```
+
+And once the VPN is connected, you can use a different shell to attach to the container:
+
+```sh
+docker container exec -it kvpnc bash
+```
+
+## PostgreSQL Client Image
+
+There is also `pgc` image provided, which is based on the main `kvpnc` image with `postgresql-client-common` and `postgresql-client-16` packages installed.
+
+It can be run similar to the main image:
+
+```sh
+docker container run --rm -it --name kvpnc-pg --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc/pgc:latest
+```
+
+Example of dumping a database and saving the output file on host machine:
+
+```sh
+docker container run --rm -it --name kvpnc-pg --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc/pgc:latest pg_dump --database=D --host=H --port=P --user=U --format=custom --file=o --compress=gzip:9
+```
+
+Enter the password, and wait for the process to finish. Then run:
+
+```sh
+docker container cp kvpnc-pg:/o db.dump
+```
+
+## Stop
+
+Either press `^C` (control+c) to the shell the started the container, or execute the following command in a different shell:
+
+```sh
+docker container stop --time=5s --signal=INT kvpnc
 ```
 
 ## Credits
