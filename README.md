@@ -48,7 +48,7 @@ There is also `pgc` image provided, which is based on the main `kvpnc` image wit
 It can be run similar to the main image:
 
 ```sh
-docker container run --rm -it --name kvpnc-pg --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc/pgc:latest
+docker container run --rm -it --name kvpnc --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc/pgc:latest
 ```
 
 Example of dumping a database and saving the output file on host machine:
@@ -60,7 +60,7 @@ docker container exec -it ghcr.io/xeptore/kvpnc/pgc:latest pg_dump --dbname=D --
 Enter the password, and wait for the process to finish. Then run:
 
 ```sh
-docker container cp kvpnc-pg:/o db.dump
+docker container cp kvpnc:/o db.dump
 ```
 
 ## Stop
@@ -68,7 +68,7 @@ docker container cp kvpnc-pg:/o db.dump
 Either press `^C` (control+c) to the shell the started the container, or execute the following command in a different shell:
 
 ```sh
-docker container stop --time=5s --signal=INT kvpnc
+docker container stop --time=5 --signal=INT kvpnc
 ```
 
 ## Credits
