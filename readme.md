@@ -32,7 +32,7 @@
 ## Run
 
 ```sh
-docker container run --rm -it --name=kvpnc --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc:latest
+docker container run --pull=always --rm -it --name=kvpnc --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc:latest
 ```
 
 And once the VPN is connected, you can use a different shell to attach to the container:
@@ -48,7 +48,7 @@ There is also `pgc` image provided, which is based on the main `kvpnc` image wit
 It can be run similar to the main image:
 
 ```sh
-docker container run --rm -it --name kvpnc --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc/pgc:latest
+docker container run --pull=always --rm -it --name kvpnc --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc/pgc:latest
 ```
 
 Example of dumping a database and saving the output file on host machine:
