@@ -1,47 +1,40 @@
-# Docker Kerio VPN Client
+# Kerio VPN Client Docker Image
 
-<a href="https://quay.io/repository/hienduyph/keriovpn-client" target="_blank">
-  <img src="https://quay.io/repository/hienduyph/keriovpn-client/status" target="_blank" alt="container">
-</a>
+## Configure
 
-## Build
+1. Obtain the server's fingerprint:
+
+   ```bash
+   openssl s_client -connect SERVER_HOST:SERVER_PORT < /dev/null 2>/dev/null | openssl x509 -fingerprint -md5 -noout -in /dev/stdin
+   ```
+
+   **Note:** Default `SERVER_PORT` value is `4090`.
+
+2. Create configuration file
+
+   Store the following in `kerio-svc.conf` file:
+
+   ```xml
+   <config>
+     <connections>
+       <connection type="persistent">
+         <server>SERVER_HOST</server>
+         <port>SERVER_PORT</port>
+         <username>USERNAME</username>
+         <password>PASSWORD</password>
+         <fingerprint>FINGERPRINT</fingerprint>
+         <active>1</active>
+       </connection>
+     </connections>
+   </config>
+   ```
+
+## Run
 
 ```bash
-docker build . -t quay.io/hienduyph/keriovpn-client
+docker run -d --name keriovpn --privileged -v $(pwd)/kerio-svc.conf:/etc/kerio-kvc.conf ghcr.io/xeptore/kvpnc
 ```
 
-## Running the client
+## Credits
 
-The default port is: 4090
-
-Obtain the fingerprint
-
-```bash
-openssl s_client -connect YOUR_SERVER:YOUR_PORT < /dev/null 2>/dev/null | openssl x509 -fingerprint -md5 -noout -in /dev/stdin
-```
-
-*kerio-svc.conf*
-
-```
-<config>
-  <connections>
-    <connection type="persistent">
-      <server>YOUR_SERVER</server>
-      <port>YOUR_PORT</port>
-      <username>YOUR_USERNAME</username>
-      <password>YOUR_PASSWORD</password>
-      <fingerprint>FINGERPRINT_ABOVE</fingerprint>
-      <active>1</active>
-    </connection>
-  </connections>
-</config>
-```
-
-**Spin up the client**
-```bash
-docker run -d --name keriovpn --net=host --privileged -v /path/to/kerio-kvc.conf:/etc/kerio-kvc.conf quay.io/hienduyph/keriovpn-client
-```
-
-From now, you could check the container logs to see detail the login address, and ask Network admin about DNS server.
-
-Hope this help!
+[@hienduyph](https://github.com/hienduyph)

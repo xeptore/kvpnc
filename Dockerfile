@@ -1,7 +1,7 @@
-FROM docker.io/ubuntu:20.04
+FROM docker.io/ubuntu:24.10
 
 RUN apt-get update \
-  && apt-get install -y iproute2 openssl libuuid1 procps cifs-utils smbclient \
+  && apt-get install -y iproute2 libcurl4 openssl libuuid1 procps cifs-utils smbclient \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
