@@ -54,7 +54,7 @@ docker container run --rm -it --name kvpnc-pg --privileged --mount=type=bind,sou
 Example of dumping a database and saving the output file on host machine:
 
 ```sh
-docker container run --rm -it --name kvpnc-pg --privileged --mount=type=bind,source=$(pwd)/kerio-svc.conf,target=/etc/kerio-kvc.conf,readonly ghcr.io/xeptore/kvpnc/pgc:latest pg_dump --database=D --host=H --port=P --user=U --format=custom --file=o --compress=gzip:9
+docker container exec -it ghcr.io/xeptore/kvpnc/pgc:latest pg_dump --dbname=D --host=H --port=P --user=U --format=custom --file=o --compress=gzip:9
 ```
 
 Enter the password, and wait for the process to finish. Then run:
