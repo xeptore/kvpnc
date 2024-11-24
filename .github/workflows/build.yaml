@@ -76,7 +76,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
         timeout-minutes: 20
-  build-pg-image:
+  build-pgc-image:
     name: Build PostgreSQL Client Docker Image
     runs-on: ubuntu-latest
     needs: 
@@ -94,7 +94,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/${{ github.repository }}/pg
+            ghcr.io/${{ github.repository }}/pgc
           tags: |
             type=edge,branch=${{ github.event.repository.default_branch }}
             type=ref,event=pr
@@ -125,7 +125,7 @@ jobs:
           push: true
           pull: true
           context: .
-          file: pg.Dockerfile
+          file: pgc.Dockerfile
           no-cache: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

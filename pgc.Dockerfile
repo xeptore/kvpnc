@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ghcr.io/xeptore/kvnpc:latest
+FROM ghcr.io/xeptore/kvpn:latest
 RUN <<EOT
 #!/usr/bin/bash
 set -Eeuo pipefail
