@@ -54,14 +54,10 @@ docker container run --rm -it --name kvpnc --privileged --mount=type=bind,source
 Example of dumping a database and saving the output file on host machine:
 
 ```sh
-docker container exec -it ghcr.io/xeptore/kvpnc/pgc:latest pg_dump --dbname=D --host=H --port=P --user=U --format=custom --file=o --compress=gzip:9
+docker container exec -it ghcr.io/xeptore/kvpnc/pgc:latest pg_dump --verbose --dbname=D --host=H --port=P --user=U --format=custom --file=o --compress=gzip:9 && docker container cp kvpnc:/o db.dump
 ```
 
-Enter the password, and wait for the process to finish. Then run:
-
-```sh
-docker container cp kvpnc:/o db.dump
-```
+Enter database password, and wait for the command to exit. Upon successful command completion, dump file should be available in the current directory as `db.dump`.
 
 ## Stop
 
