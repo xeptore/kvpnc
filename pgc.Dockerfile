@@ -8,4 +8,3 @@ apt-get install -y postgresql-client-common postgresql-client-16
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 EOT
-ENTRYPOINT ["/usr/bin/bash"]
