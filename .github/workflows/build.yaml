@@ -72,6 +72,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Xray Latest Release
+        id: xray_latest_release
+        run: |
+          latest_release_json="$(wget -qO- https://api.github.com/repos/XTLS/Xray-core/releases | jq -c '. | first')"
+          latest_tag_name="$(jq -r '.tag_name' <<< $latest_release_json)"
+          echo "tag=$latest_tag_name" >> $GITHUB_OUTPUT
       - name: Docker Image Build and Push
         id: docker_build_and_push
         uses: docker/build-push-action@v6
@@ -84,6 +90,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
+          build-args: |
+            XRAY_TAG=${{ steps.xray_latest_release.outputs.tag }}
         timeout-minutes: 20
   build-pgc-image:
     name: Build PostgreSQL Client Docker Image

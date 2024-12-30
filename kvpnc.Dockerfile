@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 FROM docker.io/ubuntu:24.10
+ARG XRAY_TAG
 COPY ./entrypoint.sh ./install.sh /
 ADD https://cdn.kerio.com/dwn/kerio-control-vpnclient-linux-amd64.deb /tmp/kerio.deb
+ADD https://github.com/XTLS/Xray-core/releases/download/${XRAY_TAG}/Xray-linux-64.zip /root/xray/
 RUN <<EOT
 #!/usr/bin/bash
 set -Eeuo pipefail
