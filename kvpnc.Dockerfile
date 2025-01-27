@@ -8,7 +8,7 @@ RUN <<EOT
 #!/usr/bin/bash
 set -Eeuo pipefail
 apt-get update
-apt-get install -y iproute2 libcurl4t64 openssl libuuid1 procps cifs-utils smbclient wget unzip vim
+apt-get install -y iproute2 libcurl4t64 openssl libuuid1 procps cifs-utils smbclient wget unzip vim jq
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 bash /install.sh
