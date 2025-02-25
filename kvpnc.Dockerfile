@@ -13,7 +13,7 @@ apt-get clean
 rm -rf /var/lib/apt/lists/*
 bash /install.sh
 chmod +x /entrypoint.sh
-unzip -d /root/xray
+unzip -d /root/xray /root/xray/Xray-linux-64.zip
 rm /root/xray/{README.md,LICENSE,Xray-linux-64.zip}
 EOT
 ENTRYPOINT ["/entrypoint.sh"]
