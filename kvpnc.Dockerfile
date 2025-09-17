@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM docker.io/ubuntu:24.10
+FROM docker.io/ubuntu:25.04
 ARG XRAY_TAG
 COPY ./entrypoint.sh ./install.sh /
 ADD https://cdn.kerio.com/dwn/kerio-control-vpnclient-linux-amd64.deb /tmp/kerio.deb
