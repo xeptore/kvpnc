@@ -7,13 +7,8 @@ ADD https://github.com/XTLS/Xray-core/releases/download/${XRAY_TAG}/Xray-linux-6
 RUN <<EOT
 #!/usr/bin/bash
 set -Eeuo pipefail
-
-# Add httpie repository
-curl -SsL https://packages.httpie.io/deb/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/httpie.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/httpie.gpg] https://packages.httpie.io/deb ./" | sudo tee /etc/apt/sources.list.d/httpie.list > /dev/null
-
 apt-get update
-apt-get install -y iproute2 libcurl4t64 openssl libuuid1 procps cifs-utils smbclient wget unzip vim jq curl httpie
+apt-get install -y iproute2 libcurl4t64 openssl libuuid1 procps cifs-utils smbclient wget unzip vim jq curl
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 bash /install.sh
