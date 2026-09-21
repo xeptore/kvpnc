@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM docker.io/ubuntu:26.04
+FROM docker.io/library/ubuntu:25.04
 COPY ./entrypoint.sh ./install.sh /
 ADD https://cdn.kerio.com/dwn/kerio-control-vpnclient-linux-amd64.deb /tmp/kerio.deb
 RUN <<EOT
